@@ -69,10 +69,13 @@ async def test_project(dut):
     assert g == 0x12
     assert b == 0x56
 
-    # Now send one extra byte (0xAA) and confirm bits get forwarded
+    # Now send THREE extra byteS and confirm bits get forwarded
     dut._log.info("Testing bit forwarding to DOUT")
 
-    await send_ws2812b_byte(dut, 0xAA)  # 10101010
+    # Send 3 bytes for RGB (G=0x12, R=0x34, B=0x56)
+    await send_ws2812b_byte(dut, 0xDE)
+    await send_ws2812b_byte(dut, 0xAD)
+    await send_ws2812b_byte(dut, 0xFF)
 
     # Allow a few cycles for DOUT propagation
     await ClockCycles(dut.clk, 10)
@@ -91,5 +94,24 @@ async def test_project(dut):
     # Check that registers have been cleared (due to reset)
     assert await tqv.read_reg(0) == 0x34  # Still holds, unless you clear manually in RTL
     # You could modify RTL to clear on idle if desired
+
+    #SEND AGAIN AFTER IDLE
+    # Send 3 bytes for RGB (G=0x12, R=0x34, B=0x56)
+    await send_ws2812b_byte(dut, 0xab)
+    await send_ws2812b_byte(dut, 0xcd)
+    await send_ws2812b_byte(dut, 0xef)
+
+    # Wait for RGB to be latched
+    await ClockCycles(dut.clk, 10)
+
+    # Read back registers
+    g = await tqv.read_reg(1)
+    r = await tqv.read_reg(0)
+    b = await tqv.read_reg(2)
+
+    dut._log.info(f"Read RGB = ({r:02X}, {g:02X}, {b:02X})")
+    assert r == 0xab
+    assert g == 0xcd
+    assert b == 0xef
 
     dut._log.info("Test complete")
