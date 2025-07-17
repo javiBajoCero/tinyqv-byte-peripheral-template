@@ -24,10 +24,10 @@ project:
     - "spi/reclocking.sv"
     - "spi/spi_reg.sv"
     - "spi/synchronizer.sv"
-    - "ws2812b_byte_assembler.v"
-    - "ws2812b_demux.v"
-    - "ws2812b_idle_detector.v"
-    - "ws2812b_pulse_decoder.v"
+    - "ws2812b/ws2812b_byte_assembler.v"
+    - "ws2812b/ws2812b_demux.v"
+    - "ws2812b/ws2812b_idle_detector.v"
+    - "ws2812b/ws2812b_pulse_decoder.v"
 
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.

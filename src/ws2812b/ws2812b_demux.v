@@ -4,22 +4,21 @@ module ws2812b_demux (
     input  wire clk,
     input  wire reset,
 
+    input  wire din_raw,     // NEW: actual DIN waveform (synchronized)
     input  wire bit_valid,
     input  wire bit_value,
     input  wire byte_valid,
     input  wire idle,
 
     output reg  dout,
-    output reg  rgb_ready  // high for 1 cycle after RGB is captured
+    output reg  rgb_ready    // high for 1 cycle after RGB is captured
 );
 
-    typedef enum logic [1:0] {
-        WAIT_RGB   = 2'b00,
-        FORWARDING = 2'b01
-    } state_t;
+    // Classic Verilog FSM (Icarus-compatible)
+    localparam WAIT_RGB   = 2'b00;
+    localparam FORWARDING = 2'b01;
 
-    state_t state, next_state;
-
+    reg [1:0] state, next_state;
     reg [1:0] byte_count;
 
     // State + control
@@ -40,16 +39,13 @@ module ws2812b_demux (
                         if (byte_count == 2'd2)
                             rgb_ready <= 1'b1;  // signal RGB is fully captured
                     end
+                    dout <= 1'b0;  // mute during RGB capture
                 end
 
                 FORWARDING: begin
-                    if (bit_valid)
-                        dout <= bit_value;
+                    dout <= din_raw;  // forward waveform directly
                 end
             endcase
-
-            if (state != FORWARDING && next_state == FORWARDING)
-                dout <= 1'b0;  // clear output when switching to forwarding
 
             if (idle) begin
                 byte_count <= 2'd0;
@@ -60,21 +56,14 @@ module ws2812b_demux (
     // Next state logic
     always @(*) begin
         case (state)
-            WAIT_RGB: begin
-                if (byte_count == 2'd2 && byte_valid)
-                    next_state = FORWARDING;
-                else
-                    next_state = WAIT_RGB;
-            end
+            WAIT_RGB:
+                next_state = (byte_count == 2'd2 && byte_valid) ? FORWARDING : WAIT_RGB;
 
-            FORWARDING: begin
-                if (idle)
-                    next_state = WAIT_RGB;
-                else
-                    next_state = FORWARDING;
-            end
+            FORWARDING:
+                next_state = idle ? WAIT_RGB : FORWARDING;
 
-            default: next_state = WAIT_RGB;
+            default:
+                next_state = WAIT_RGB;
         endcase
     end
 

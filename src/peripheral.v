@@ -76,6 +76,7 @@ module tt_um_impostor_WS2812b (
     ws2812b_demux demux (
         .clk(clk),
         .reset(reset),
+        .din_raw(ui_in[1]),
         .bit_valid(bit_valid),
         .bit_value(bit_value),
         .byte_valid(byte_valid),
