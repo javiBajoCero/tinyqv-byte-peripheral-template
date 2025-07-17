@@ -35,7 +35,7 @@ module tt_um_tqv_peripheral_harness (
 
   // The peripheral under test - change the module name here
   // to match your preipheral.
-  tt_um_tqv_peripheral_harness tt_um_impostor_WS2812b(
+  tqvp_example tt_um_impostor_WS2812b(
     .clk(clk),
     .rst_n(rst_reg_n),
     .ui_in(ui_in_sync),
