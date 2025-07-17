@@ -111,7 +111,7 @@ module tt_um_impostor_WS2812b (
             4'h0: data_out_r = reg_r;
             4'h1: data_out_r = reg_g;
             4'h2: data_out_r = reg_b;
-            4'hF: data_out_r = {7'b0, rgb_ready}; // optional status register
+            4'hF: data_out_r = rgb_ready ? 8'hFF : 8'h00;//0xFF if rgb_ready 0x00 if not
             default: data_out_r = 8'h00;
         endcase
     end
