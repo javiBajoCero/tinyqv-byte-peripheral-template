@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tqvp_example (
+module impostor_WS2812b (
     input         clk,          // Clock - the TinyQV project clock is normally set to 64MHz.
     input         rst_n,        // Reset_n - low to reset.
 
