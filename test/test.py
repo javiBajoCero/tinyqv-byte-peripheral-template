@@ -42,7 +42,8 @@ async def idle_line(dut, us=60):
 async def test_project(dut):
     dut._log.info("Start test")
 
-    clock = Clock(dut.clk, 15.625, units="ns")  # 64MHz clock
+    #clock = Clock(dut.clk, 15.625, units="ns")  # 64MHz clock
+    clock = Clock(dut.clk, 16, units="ns")  # ≈62.5 MHz, close enough to 64 MHz for test
     cocotb.start_soon(clock.start())
 
     tqv = TinyQV(dut)
