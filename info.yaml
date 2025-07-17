@@ -24,6 +24,10 @@ project:
     - "spi/reclocking.sv"
     - "spi/spi_reg.sv"
     - "spi/synchronizer.sv"
+    - "ws2812b_byte_assembler.v"
+    - "ws2812b_demux.v"
+    - "ws2812b_idle_detector.v"
+    - "ws2812b_pulse_decoder.v"
 
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
@@ -31,7 +35,7 @@ project:
 pinout:
   # Inputs
   ui[0]: ""
-  ui[1]: ""
+  ui[1]: "DIN"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
@@ -41,7 +45,7 @@ pinout:
 
   # Outputs
   uo[0]: ""
-  uo[1]: ""
+  uo[1]: "DOUT"
   uo[2]: ""
   uo[3]: ""
   uo[4]: ""
