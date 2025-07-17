@@ -52,9 +52,9 @@ async def test_project(dut):
     dut._log.info("Sending 3 bytes (G, R, B)")
 
     # Send 3 bytes for RGB (G=0x12, R=0x34, B=0x56)
-    await send_ws2812b_byte(dut, 0x12)
-    await send_ws2812b_byte(dut, 0x34)
-    await send_ws2812b_byte(dut, 0x56)
+    await send_ws2812b_byte(dut, 0x12)#g
+    await send_ws2812b_byte(dut, 0x34)#r
+    await send_ws2812b_byte(dut, 0x56)#b
 
     # Wait for RGB to be latched
     await ClockCycles(dut.clk, 10)
@@ -110,8 +110,8 @@ async def test_project(dut):
     b = await tqv.read_reg(2)
 
     dut._log.info(f"Read RGB = ({r:02X}, {g:02X}, {b:02X})")
-    assert r == 0xab
-    assert g == 0xcd
+    assert r == 0xcd
+    assert g == 0xab
     assert b == 0xef
 
     dut._log.info("Test complete")
