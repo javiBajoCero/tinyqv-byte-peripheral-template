@@ -1,37 +1,36 @@
-    `timescale 1ns / 1ps
+`timescale 1ns / 1ps
 
 module ws2812b_pulse_decoder #(
-    parameter CLK_HZ = 64000000,            // system clock frequency
-    parameter THRESHOLD_CYCLES = 38         // ~600ns at 64MHz (decoding threshold)
+    parameter CLK_HZ = 64000000,
+    parameter THRESHOLD_CYCLES = 38
 )(
     input  wire clk,
     input  wire reset,
-    input  wire din,         // raw WS2812B signal
-    output reg  bit_valid,   // pulse decoded, valid for 1 cycle
-    output reg  bit_value    // 0 or 1 based on HIGH pulse width
+    input  wire din,
+    output reg  bit_valid,
+    output reg  bit_value
 );
 
-    // FSM states
-    typedef enum logic [1:0] {
-        IDLE      = 2'b00,
-        COUNT_HIGH= 2'b01,
-        WAIT_LOW  = 2'b10
-    } state_t;
+    // FSM states (use classic Verilog style)
+    localparam IDLE       = 2'b00;
+    localparam COUNT_HIGH = 2'b01;
+    localparam WAIT_LOW   = 2'b10;
 
-    state_t state, next_state;
+    reg [1:0] state, next_state;
+    reg [7:0] high_counter;
 
-    reg [7:0] high_counter;  // counts length of HIGH pulse
-    reg       din_sync_0, din_sync_1;
+    reg din_sync_0, din_sync_1;
+    wire din_stable;
 
-    // Synchronize DIN to clk domain (helps with metastability)
+    assign din_stable = din_sync_1;
+
+    // Input synchronizer
     always @(posedge clk) begin
         din_sync_0 <= din;
         din_sync_1 <= din_sync_0;
     end
 
-    wire din_stable = din_sync_1;
-
-    // State transition
+    // FSM state register
     always @(posedge clk) begin
         if (reset) begin
             state <= IDLE;
@@ -40,7 +39,7 @@ module ws2812b_pulse_decoder #(
             bit_value <= 0;
         end else begin
             state <= next_state;
-            bit_valid <= 0;  // default: deassert
+            bit_valid <= 0; // default
 
             case (state)
                 IDLE: begin
@@ -53,7 +52,6 @@ module ws2812b_pulse_decoder #(
                 end
                 WAIT_LOW: begin
                     if (!din_stable) begin
-                        // Decode bit
                         bit_valid <= 1;
                         bit_value <= (high_counter > THRESHOLD_CYCLES) ? 1'b1 : 1'b0;
                     end
@@ -62,17 +60,17 @@ module ws2812b_pulse_decoder #(
         end
     end
 
-    // Next state logic
+    // FSM next-state logic
     always @(*) begin
         case (state)
             IDLE:
-                next_state = (din_stable) ? COUNT_HIGH : IDLE;
+                next_state = din_stable ? COUNT_HIGH : IDLE;
 
             COUNT_HIGH:
-                next_state = (din_stable) ? COUNT_HIGH : WAIT_LOW;
+                next_state = din_stable ? COUNT_HIGH : WAIT_LOW;
 
             WAIT_LOW:
-                next_state = (!din_stable) ? IDLE : WAIT_LOW;
+                next_state = din_stable ? WAIT_LOW : IDLE;
 
             default:
                 next_state = IDLE;
