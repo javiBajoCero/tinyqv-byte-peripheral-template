@@ -9,20 +9,22 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## What it does
 
-Explain what your peripheral does and how it works
+pretends to be a WS2812b addresable led, it can be daisychained with other real WS2812b leds
 
 ## Register map
 
 Document the registers that are used to interact with your peripheral
 
-| Address | Name  | Access | Description                                                         |
-|---------|-------|--------|---------------------------------------------------------------------|
-| 0x00    | DATA  | R/W    | A byte of data                                                      |
+| Address | Name        | Access | Description                                                                  |
+|---------|-------------|--------|------------------------------------------------------------------------------|
+| 0x01    | RED_BYTE    | R      | Last Received RED byte                                                       |
+| 0x02    | GREEN_BYTE  | R      | Last Received GREEN byte                                                     |
+| 0x03    | BLUE_BYTE   | R      | Last Received BLUE byte                                                      |
 
 ## How to test
 
-Explain how to use your project
+BLA BLA BLA
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+BLA BLA WS2812b driver BLA BLA
