@@ -6,7 +6,7 @@ SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
 PROJECT_SOURCES = peripheral.v
-ADDITIONAL_SOURCES = tt_wrapper.v spi/*.sv
+ADDITIONAL_SOURCES = tt_wrapper.v spi/*.sv ws2812b_byte_assembler.v ws2812b_demux.v ws2812b_idle_detector.v ws2812b_pulse_decoder.v
 
 ifneq ($(GATES),yes)
 
