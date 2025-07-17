@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module byte_assembler (
+module ws2812b_byte_assembler  (
     input  wire clk,
     input  wire reset,
 
