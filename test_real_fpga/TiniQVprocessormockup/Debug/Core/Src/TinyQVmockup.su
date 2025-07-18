@@ -1,0 +1,7 @@
+../Core/Src/TinyQVmockup.c:16:6:from_byte_to_gpio_status	24	static
+../Core/Src/TinyQVmockup.c:25:9:from_gpiostatus_to_byte	24	static
+../Core/Src/TinyQVmockup.c:41:6:writeGPIOSaddr_bus	16	static
+../Core/Src/TinyQVmockup.c:48:6:writeGPIOSdata_in_bus	16	static
+../Core/Src/TinyQVmockup.c:59:6:readGPIOSdata_out_bus	24	static
+../Core/Src/TinyQVmockup.c:71:6:writeRegisterToPheripheral	16	static
+../Core/Src/TinyQVmockup.c:81:9:readRegisterFromPheripheral	16	static
