@@ -64,10 +64,10 @@ async def test_project(dut):
     # Wait for RGB to be latched
     await ClockCycles(dut.clk, 10)
 
-    dut._log.info("Reading rgb_ready is 0xFF and that cleared when writen a 0 to addr 0xf")
+    dut._log.info("Reading rgb_ready is 0xFF and that cleared when writen a 0 to addr 0xe")
     read1 = await tqv.read_reg(15)
     await ClockCycles(dut.clk, 1)  # allow state update
-    await tqv.write_reg(15, 0) 
+    await tqv.write_reg(14, 0) 
     await ClockCycles(dut.clk, 1)  # allow clearing to propagate
     read2 = await tqv.read_reg(15)
     assert read1 == 0xFF
@@ -93,6 +93,15 @@ async def test_project(dut):
 
     # Allow a few cycles for DOUT propagation
     await ClockCycles(dut.clk, 10)
+
+    dut._log.info("Reading rgb_ready is 0x00")
+    read1 = await tqv.read_reg(15)
+    await ClockCycles(dut.clk, 1)  # allow state update
+    await tqv.write_reg(14, 0) 
+    await ClockCycles(dut.clk, 1)  # allow clearing to propagate
+    read2 = await tqv.read_reg(15)
+    assert read1 == 0x00
+    assert read2 == 0x00
 
     # Check that uo_out[1] has toggled (forwarding is happening)
     # Note: due to pipelining, you may not catch exact bits — we just assert activity

@@ -132,8 +132,8 @@ module tt_um_impostor_WS2812b (
             if (rgb_ready_pulse)
                 rgb_ready <= 1;
 
-            // Clear rgb_ready only when 0x0 is written to address 0xf
-            if (data_writeaddress == 4'h0 && address == 4'hF)
+            // Clear rgb_ready only when 0x0 is written to address 0xe
+            if (data_writeaddress == 4'h0 && address == 4'he)
                 rgb_ready <= 0;
         end
     end
