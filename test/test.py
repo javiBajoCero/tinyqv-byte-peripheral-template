@@ -49,6 +49,11 @@ async def test_project(dut):
     tqv = TinyQV(dut)
     await tqv.reset()
 
+    # Check if rgb?ready register is ON
+    ready = await tqv.read_reg(0xF)
+    assert ready == 0
+    dut._log.info("Reading rgb_ready is OFF")
+
     dut._log.info("Sending 3 bytes (G, R, B)")
 
     # Send 3 bytes for RGB (G=0x12, R=0x34, B=0x56)
@@ -58,6 +63,16 @@ async def test_project(dut):
 
     # Wait for RGB to be latched
     await ClockCycles(dut.clk, 10)
+
+    # Check if rgb?ready register is ON
+    ready = await tqv.read_reg(0xF)
+    assert ready == 0xFF
+    dut._log.info("Reading rgb_ready is 0xFF")
+
+    # Check if rgb?ready register autocleared after read
+    ready = await tqv.read_reg(0xF)
+    assert ready == 0x00
+    dut._log.info("Reading rgb_ready is 0x00")
 
     # Read back registers
     g = await tqv.read_reg(1)
