@@ -34,7 +34,10 @@ module tt_um_impostor_WS2812b (
     wire byte_valid;
     wire [7:0] byte_data;
     wire idle;
-    wire rgb_ready;
+    //latching
+    wire rgb_ready_pulse;
+    reg  rgb_ready;
+
 
     // Registers to store the first 3 bytes (G, R, B)
     reg [7:0] reg_g, reg_r, reg_b;
@@ -73,8 +76,6 @@ module tt_um_impostor_WS2812b (
         .idle(idle)
     );
 
-    wire read_en = (data_write == 1'b0);  // read access
-
     ws2812b_demux demux (
         .clk(clk),
         .reset(reset),
@@ -84,10 +85,9 @@ module tt_um_impostor_WS2812b (
         .byte_valid(byte_valid),
         .idle(idle),
         .dout(uo_out[1]),
-        .rgb_ready(rgb_ready),
-        .read_en(read_en),
-        .read_address(address)
+        .rgb_ready(rgb_ready_pulse)
     );
+
 
     // ------------------------------
     // RGB Register capture
@@ -115,12 +115,29 @@ module tt_um_impostor_WS2812b (
             4'h0: data_out_r = reg_r;
             4'h1: data_out_r = reg_g;
             4'h2: data_out_r = reg_b;
-            4'hF: data_out_r = rgb_ready ? 8'hFF : 8'h00;//0xFF if rgb_ready 0x00 if not
+            4'hF: data_out_r = rgb_ready ? 8'hFF : 8'h00;//0xFF if rgb_ready 0x00 if0
             default: data_out_r = 8'h00;
         endcase
     end
 
     assign data_out = data_out_r;
+
+    // ------------------------------
+    // Autoclearing of rgb_ready when read
+    // ------------------------------
+        always @(posedge clk) begin
+        if (reset || idle) begin
+            rgb_ready <= 0;
+        end else begin
+            if (rgb_ready_pulse)
+                rgb_ready <= 1;
+
+            // clear rgb_ready when address 0xF is read
+            if (!data_write && address == 4'hF)
+                rgb_ready <= 0;
+        end
+    end
+
 
     // All unused outputs to 0
     assign uo_out[0] = 1'b0;
