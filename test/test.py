@@ -50,7 +50,7 @@ async def test_project(dut):
     await tqv.reset()
 
     # Check if rgb?ready register is ON
-    ready = await tqv.read_reg(0xF)
+    ready = await tqv.read_reg(15)
     assert ready == 0
     dut._log.info("Reading rgb_ready is OFF")
 
@@ -65,15 +65,15 @@ async def test_project(dut):
     await ClockCycles(dut.clk, 10)
 
     # Check if rgb?ready register is ON
-    ready = await tqv.read_reg(0xF)
-    assert ready == 0xFF
     dut._log.info("Reading rgb_ready is 0xFF")
+    ready = await tqv.read_reg(15)
+    assert ready == 0xFF
 
     # Check if rgb?ready register autocleared after read
-    ready = await tqv.read_reg(0xF)
+    dut._log.info("Reading rgb_ready autocleared")
+    ready = await tqv.read_reg(15)
     assert ready == 0x00
-    dut._log.info("Reading rgb_ready is 0x00")
-
+    
     # Read back registers
     g = await tqv.read_reg(1)
     r = await tqv.read_reg(0)
