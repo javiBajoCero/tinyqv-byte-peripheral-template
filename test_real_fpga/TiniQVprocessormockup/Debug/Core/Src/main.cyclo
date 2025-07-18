@@ -1,4 +1,4 @@
-../Core/Src/main.c:41:10:frombytestocolor565	1
-../Core/Src/main.c:74:5:main	2
-../Core/Src/main.c:134:6:SystemClock_Config	3
-../Core/Src/main.c:184:6:Error_Handler	1
+../Core/Src/main.c:39:10:frombytestocolor565	1
+../Core/Src/main.c:72:5:main	2
+../Core/Src/main.c:130:6:SystemClock_Config	3
+../Core/Src/main.c:180:6:Error_Handler	1

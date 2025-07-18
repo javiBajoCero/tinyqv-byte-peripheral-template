@@ -1,0 +1,88 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
+| Date         : Fri Jul 18 15:52:01 2025
+| Host         : javi_laptop running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file tt_um_impostor_WS2812b_control_sets_placed.rpt
+| Design       : tt_um_impostor_WS2812b
+| Device       : xc7s50
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    10 |
+|    Minimum number of control sets                        |    10 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    14 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    10 |
+| >= 0 to < 4        |     0 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     7 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     0 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               4 |            1 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |              12 |            3 |
+| Yes          | No                    | No                     |              32 |            9 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |              26 |            7 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++---------------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
+|     Clock Signal    |             Enable Signal             |            Set/Reset Signal           | Slice Load Count | Bel Load Count | Bels / Slice |
++---------------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
+|  CLK12MHZ_IBUF_BUFG |                                       |                                       |                1 |              4 |         4.00 |
+|  CLK12MHZ_IBUF_BUFG |                                       | idle_detector/idle_reg_0              |                1 |              4 |         4.00 |
+|  CLK12MHZ_IBUF_BUFG |                                       | decoder/SR[0]                         |                2 |              8 |         4.00 |
+|  CLK12MHZ_IBUF_BUFG | byte_assembler/byte_index_reg[1]_1[0] |                                       |                1 |              8 |         8.00 |
+|  CLK12MHZ_IBUF_BUFG | byte_assembler/byte_index_reg[1]_0[0] |                                       |                3 |              8 |         2.67 |
+|  CLK12MHZ_IBUF_BUFG | byte_assembler/byte_index_reg[0][0]   |                                       |                4 |              8 |         2.00 |
+|  CLK12MHZ_IBUF_BUFG | byte_assembler/byte_data[7]_i_1_n_0   |                                       |                1 |              8 |         8.00 |
+|  CLK12MHZ_IBUF_BUFG | idle_detector/sel                     | idle_detector/idle_counter[7]_i_1_n_0 |                2 |              8 |         4.00 |
+|  CLK12MHZ_IBUF_BUFG | decoder/next_state[0]                 | decoder/SR[0]                         |                3 |              8 |         2.67 |
+|  CLK12MHZ_IBUF_BUFG | decoder/E[0]                          | decoder/SR[0]                         |                2 |             10 |         5.00 |
++---------------------+---------------------------------------+---------------------------------------+------------------+----------------+--------------+
+
+
