@@ -64,15 +64,13 @@ async def test_project(dut):
     # Wait for RGB to be latched
     await ClockCycles(dut.clk, 10)
 
-    # Check if rgb?ready register is ON
-    dut._log.info("Reading rgb_ready is 0xFF")
-    ready = await tqv.read_reg(15)
-    assert ready == 0xFF
+    dut._log.info("Reading rgb_ready is 0xFF and that autocleared AFTER ONE CYCLE")
+    read1 = await tqv.read_reg(15)
+    await ClockCycles(dut.clk, 1)  # allow state update
+    read2 = await tqv.read_reg(15)
 
-    # Check if rgb?ready register autocleared after read
-    dut._log.info("Reading rgb_ready autocleared")
-    ready = await tqv.read_reg(15)
-    assert ready == 0x00
+    assert read1 == 0xFF
+    assert read2 == 0x00
     
     # Read back registers
     g = await tqv.read_reg(1)
