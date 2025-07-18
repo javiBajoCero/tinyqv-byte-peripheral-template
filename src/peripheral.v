@@ -73,6 +73,8 @@ module tt_um_impostor_WS2812b (
         .idle(idle)
     );
 
+    wire read_en = (data_write == 1'b0);  // read access
+    
     ws2812b_demux demux (
         .clk(clk),
         .reset(reset),
@@ -82,7 +84,10 @@ module tt_um_impostor_WS2812b (
         .byte_valid(byte_valid),
         .idle(idle),
         .dout(uo_out[1]),
-        .rgb_ready(rgb_ready)
+        .rgb_ready(rgb_ready),
+        .din_raw(din_synced),
+        .read_en(read_en),
+        .read_address(address)
     );
 
     // ------------------------------

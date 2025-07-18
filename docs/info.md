@@ -13,14 +13,13 @@ pretends to be a WS2812b addresable led, it can be daisychained with other real 
 
 ## Register map
 
-Document the registers that are used to interact with your peripheral
 
 | Address | Name        | Access | Description                                                                  |
 |---------|-------------|--------|------------------------------------------------------------------------------|
-| 0x01    | RED_BYTE    | R      | Last Received RED byte                                                       |
-| 0x02    | GREEN_BYTE  | R      | Last Received GREEN byte                                                     |
-| 0x03    | BLUE_BYTE   | R      | Last Received BLUE byte                                                      |
-
+| 0x0    | reg_r        | R      | Last Received RED byte                                                       |
+| 0x1    | reg_g        | R      | Last Received GREEN byte                                                     |
+| 0x2    | reg_b        | R      | Last Received BLUE byte                                                      |
+| 0xF    | rgb_ready    | R      | 0xFF if just received data 0x0 otherwise                                     |
 ## How to test
 
 BLA BLA BLA
