@@ -64,11 +64,12 @@ async def test_project(dut):
     # Wait for RGB to be latched
     await ClockCycles(dut.clk, 10)
 
-    dut._log.info("Reading rgb_ready is 0xFF and that autocleared AFTER ONE CYCLE")
+    dut._log.info("Reading rgb_ready is 0xFF and that cleared when writen a 0 to addr 0xf")
     read1 = await tqv.read_reg(15)
     await ClockCycles(dut.clk, 1)  # allow state update
+    await tqv.write_reg(15, 0) 
+    await ClockCycles(dut.clk, 1)  # allow clearing to propagate
     read2 = await tqv.read_reg(15)
-
     assert read1 == 0xFF
     assert read2 == 0x00
     

@@ -123,17 +123,21 @@ module tt_um_impostor_WS2812b (
     assign data_out = data_out_r;
 
     // ------------------------------
-    // Autoclearing of rgb_ready when read
+    // explicit clear register
     // ------------------------------
     always @(posedge clk) begin
         if (reset || idle) begin
             rgb_ready <= 0;
-        end else if (rgb_ready_pulse) begin
-            rgb_ready <= 1;
-        end else if (!data_write && address == 4'hF) begin
-            rgb_ready <= 0;
+        end else begin
+            if (rgb_ready_pulse)
+                rgb_ready <= 1;
+
+            // Clear rgb_ready only when 0x0 is written to address 0xf
+            if (data_writeaddress == 4'h0 && address == 4'hF)
+                rgb_ready <= 0;
         end
     end
+
 
 
 
