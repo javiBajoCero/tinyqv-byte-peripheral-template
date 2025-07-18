@@ -104,7 +104,9 @@ int main(void)
   paintImage(image);
   HAL_Delay(2000);
   fillScreen(BLACK);
-  ST7735_WriteString(0, 160/2, "WAITING", Font_16x26, WHITE, BLACK);
+  ST7735_WriteString(0, 0, " I AM A LED :)", Font_16x26, WHITE, BLACK);
+  ST7735_FillRectangle((128/2)-25, (160/2)-25, 50, 50, WHITE);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -116,7 +118,7 @@ int main(void)
 		green	=readRegisterFromPheripheral(REG_G);
 		blue	=readRegisterFromPheripheral(REG_B);
 		writeRegisterToPheripheral(REG_RGB_CLEAR, RGB_CLEAR_CMD);
-		ST7735_WriteString(0, 160/2, "IM AM A LED", Font_16x26, frombytestocolor565(red, green, blue), BLACK);
+		ST7735_FillRectangle((128/2)-20, (160/2)-20, 40, 40, frombytestocolor565(red, green, blue));
 	}
     /* USER CODE END WHILE */
 

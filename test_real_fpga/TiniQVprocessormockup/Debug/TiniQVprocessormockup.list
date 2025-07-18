@@ -7,45 +7,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00003f0c  080001d8  080001d8  000011d8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       0000b3e4  080040e4  080040e4  000050e4  2**2
+  2 .rodata       0000b3e0  080040e4  080040e4  000050e4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800f4c8  0800f4c8  00011014  2**0
+  3 .ARM.extab    00000000  0800f4c4  0800f4c4  00011014  2**0
                   CONTENTS
-  4 .ARM          00000000  0800f4c8  0800f4c8  00011014  2**0
+  4 .ARM          00000000  0800f4c4  0800f4c4  00011014  2**0
                   CONTENTS
-  5 .preinit_array 00000000  0800f4c8  0800f4c8  00011014  2**0
+  5 .preinit_array 00000000  0800f4c4  0800f4c4  00011014  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0800f4c8  0800f4c8  000104c8  2**2
+  6 .init_array   00000004  0800f4c4  0800f4c4  000104c4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  0800f4cc  0800f4cc  000104cc  2**2
+  7 .fini_array   00000004  0800f4c8  0800f4c8  000104c8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000014  20000000  0800f4d0  00011000  2**2
+  8 .data         00000014  20000000  0800f4cc  00011000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000154  20000014  0800f4e4  00011014  2**2
+  9 .bss          00000154  20000014  0800f4e0  00011014  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000168  0800f4e4  00011168  2**0
+ 10 ._user_heap_stack 00000600  20000168  0800f4e0  00011168  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00011014  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000f71d  00000000  00000000  00011044  2**0
+ 12 .debug_info   0000f742  00000000  00000000  00011044  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000293b  00000000  00000000  00020761  2**0
+ 13 .debug_abbrev 0000293b  00000000  00000000  00020786  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000010f8  00000000  00000000  000230a0  2**3
+ 14 .debug_aranges 000010f8  00000000  00000000  000230c8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00000cea  00000000  00000000  00024198  2**0
+ 15 .debug_rnglists 00000cea  00000000  00000000  000241c0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00026bfe  00000000  00000000  00024e82  2**0
+ 16 .debug_macro  00026bfe  00000000  00000000  00024eaa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000143fb  00000000  00000000  0004ba80  2**0
+ 17 .debug_line   000143fb  00000000  00000000  0004baa8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000f7c66  00000000  00000000  0005fe7b  2**0
+ 18 .debug_str    000f7c66  00000000  00000000  0005fea3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00157ae1  2**0
+ 19 .comment      00000043  00000000  00000000  00157b09  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000045a0  00000000  00000000  00157b24  2**2
+ 20 .debug_frame  000045a0  00000000  00000000  00157b4c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000009d  00000000  00000000  0015c0c4  2**0
+ 21 .debug_line_str 0000009d  00000000  00000000  0015c0ec  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -495,9 +495,9 @@ void ST7735_Init(uint8_t rotation)
  80004ae:	3708      	adds	r7, #8
  80004b0:	46bd      	mov	sp, r7
  80004b2:	bd80      	pop	{r7, pc}
- 80004b4:	080040f8 	.word	0x080040f8
- 80004b8:	08004130 	.word	0x08004130
- 80004bc:	08004140 	.word	0x08004140
+ 80004b4:	080040f4 	.word	0x080040f4
+ 80004b8:	0800412c 	.word	0x0800412c
+ 80004bc:	0800413c 	.word	0x0800413c
  80004c0:	20000035 	.word	0x20000035
  80004c4:	20000036 	.word	0x20000036
 
@@ -1969,7 +1969,7 @@ int main(void)
  8000e92:	2000      	movs	r0, #0
  8000e94:	f7ff faec 	bl	8000470 <ST7735_Init>
   paintImage(image);
- 8000e98:	4827      	ldr	r0, [pc, #156]	@ (8000f38 <main+0xc4>)
+ 8000e98:	4828      	ldr	r0, [pc, #160]	@ (8000f3c <main+0xc8>)
  8000e9a:	f7ff fd27 	bl	80008ec <paintImage>
   HAL_Delay(2000);
  8000e9e:	f44f 60fa 	mov.w	r0, #2000	@ 0x7d0
@@ -1977,8 +1977,8 @@ int main(void)
   fillScreen(BLACK);
  8000ea6:	2000      	movs	r0, #0
  8000ea8:	f7ff f9d2 	bl	8000250 <fillScreen>
-  ST7735_WriteString(0, 160/2, "WAITING", Font_16x26, WHITE, BLACK);
- 8000eac:	4b23      	ldr	r3, [pc, #140]	@ (8000f3c <main+0xc8>)
+  ST7735_WriteString(0, 0, " I AM A LED :)", Font_16x26, WHITE, BLACK);
+ 8000eac:	4b24      	ldr	r3, [pc, #144]	@ (8000f40 <main+0xcc>)
  8000eae:	2200      	movs	r2, #0
  8000eb0:	9202      	str	r2, [sp, #8]
  8000eb2:	f64f 72ff 	movw	r2, #65535	@ 0xffff
@@ -1986,78 +1986,78 @@ int main(void)
  8000eb8:	685a      	ldr	r2, [r3, #4]
  8000eba:	9200      	str	r2, [sp, #0]
  8000ebc:	681b      	ldr	r3, [r3, #0]
- 8000ebe:	4a20      	ldr	r2, [pc, #128]	@ (8000f40 <main+0xcc>)
- 8000ec0:	2150      	movs	r1, #80	@ 0x50
+ 8000ebe:	4a21      	ldr	r2, [pc, #132]	@ (8000f44 <main+0xd0>)
+ 8000ec0:	2100      	movs	r1, #0
  8000ec2:	2000      	movs	r0, #0
  8000ec4:	f7ff fc36 	bl	8000734 <ST7735_WriteString>
+  ST7735_FillRectangle((128/2)-25, (160/2)-25, 50, 50, WHITE);
+ 8000ec8:	f64f 73ff 	movw	r3, #65535	@ 0xffff
+ 8000ecc:	9300      	str	r3, [sp, #0]
+ 8000ece:	2332      	movs	r3, #50	@ 0x32
+ 8000ed0:	2232      	movs	r2, #50	@ 0x32
+ 8000ed2:	2137      	movs	r1, #55	@ 0x37
+ 8000ed4:	2027      	movs	r0, #39	@ 0x27
+ 8000ed6:	f7ff fc81 	bl	80007dc <ST7735_FillRectangle>
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
 	if(readRegisterFromPheripheral(REG_RGB_READY)==RGB_READY){
- 8000ec8:	200f      	movs	r0, #15
- 8000eca:	f7ff fea1 	bl	8000c10 <readRegisterFromPheripheral>
- 8000ece:	4603      	mov	r3, r0
- 8000ed0:	2bff      	cmp	r3, #255	@ 0xff
- 8000ed2:	d1f9      	bne.n	8000ec8 <main+0x54>
+ 8000eda:	200f      	movs	r0, #15
+ 8000edc:	f7ff fe98 	bl	8000c10 <readRegisterFromPheripheral>
+ 8000ee0:	4603      	mov	r3, r0
+ 8000ee2:	2bff      	cmp	r3, #255	@ 0xff
+ 8000ee4:	d1f9      	bne.n	8000eda <main+0x66>
 		red		=readRegisterFromPheripheral(REG_R);
- 8000ed4:	2000      	movs	r0, #0
- 8000ed6:	f7ff fe9b 	bl	8000c10 <readRegisterFromPheripheral>
- 8000eda:	4603      	mov	r3, r0
- 8000edc:	461a      	mov	r2, r3
- 8000ede:	4b19      	ldr	r3, [pc, #100]	@ (8000f44 <main+0xd0>)
- 8000ee0:	701a      	strb	r2, [r3, #0]
+ 8000ee6:	2000      	movs	r0, #0
+ 8000ee8:	f7ff fe92 	bl	8000c10 <readRegisterFromPheripheral>
+ 8000eec:	4603      	mov	r3, r0
+ 8000eee:	461a      	mov	r2, r3
+ 8000ef0:	4b15      	ldr	r3, [pc, #84]	@ (8000f48 <main+0xd4>)
+ 8000ef2:	701a      	strb	r2, [r3, #0]
 		green	=readRegisterFromPheripheral(REG_G);
- 8000ee2:	2001      	movs	r0, #1
- 8000ee4:	f7ff fe94 	bl	8000c10 <readRegisterFromPheripheral>
- 8000ee8:	4603      	mov	r3, r0
- 8000eea:	461a      	mov	r2, r3
- 8000eec:	4b16      	ldr	r3, [pc, #88]	@ (8000f48 <main+0xd4>)
- 8000eee:	701a      	strb	r2, [r3, #0]
+ 8000ef4:	2001      	movs	r0, #1
+ 8000ef6:	f7ff fe8b 	bl	8000c10 <readRegisterFromPheripheral>
+ 8000efa:	4603      	mov	r3, r0
+ 8000efc:	461a      	mov	r2, r3
+ 8000efe:	4b13      	ldr	r3, [pc, #76]	@ (8000f4c <main+0xd8>)
+ 8000f00:	701a      	strb	r2, [r3, #0]
 		blue	=readRegisterFromPheripheral(REG_B);
- 8000ef0:	2002      	movs	r0, #2
- 8000ef2:	f7ff fe8d 	bl	8000c10 <readRegisterFromPheripheral>
- 8000ef6:	4603      	mov	r3, r0
- 8000ef8:	461a      	mov	r2, r3
- 8000efa:	4b14      	ldr	r3, [pc, #80]	@ (8000f4c <main+0xd8>)
- 8000efc:	701a      	strb	r2, [r3, #0]
+ 8000f02:	2002      	movs	r0, #2
+ 8000f04:	f7ff fe84 	bl	8000c10 <readRegisterFromPheripheral>
+ 8000f08:	4603      	mov	r3, r0
+ 8000f0a:	461a      	mov	r2, r3
+ 8000f0c:	4b10      	ldr	r3, [pc, #64]	@ (8000f50 <main+0xdc>)
+ 8000f0e:	701a      	strb	r2, [r3, #0]
 		writeRegisterToPheripheral(REG_RGB_CLEAR, RGB_CLEAR_CMD);
- 8000efe:	2100      	movs	r1, #0
- 8000f00:	200e      	movs	r0, #14
- 8000f02:	f7ff fe51 	bl	8000ba8 <writeRegisterToPheripheral>
-		ST7735_WriteString(0, 160/2, "IM AM A LED", Font_16x26, frombytestocolor565(red, green, blue), BLACK);
- 8000f06:	4b0f      	ldr	r3, [pc, #60]	@ (8000f44 <main+0xd0>)
- 8000f08:	781b      	ldrb	r3, [r3, #0]
- 8000f0a:	4a0f      	ldr	r2, [pc, #60]	@ (8000f48 <main+0xd4>)
- 8000f0c:	7811      	ldrb	r1, [r2, #0]
- 8000f0e:	4a0f      	ldr	r2, [pc, #60]	@ (8000f4c <main+0xd8>)
- 8000f10:	7812      	ldrb	r2, [r2, #0]
- 8000f12:	4618      	mov	r0, r3
- 8000f14:	f7ff ff88 	bl	8000e28 <frombytestocolor565>
- 8000f18:	4603      	mov	r3, r0
- 8000f1a:	4619      	mov	r1, r3
- 8000f1c:	4b07      	ldr	r3, [pc, #28]	@ (8000f3c <main+0xc8>)
- 8000f1e:	2200      	movs	r2, #0
- 8000f20:	9202      	str	r2, [sp, #8]
- 8000f22:	9101      	str	r1, [sp, #4]
- 8000f24:	685a      	ldr	r2, [r3, #4]
- 8000f26:	9200      	str	r2, [sp, #0]
- 8000f28:	681b      	ldr	r3, [r3, #0]
- 8000f2a:	4a09      	ldr	r2, [pc, #36]	@ (8000f50 <main+0xdc>)
- 8000f2c:	2150      	movs	r1, #80	@ 0x50
- 8000f2e:	2000      	movs	r0, #0
- 8000f30:	f7ff fc00 	bl	8000734 <ST7735_WriteString>
+ 8000f10:	2100      	movs	r1, #0
+ 8000f12:	200e      	movs	r0, #14
+ 8000f14:	f7ff fe48 	bl	8000ba8 <writeRegisterToPheripheral>
+		ST7735_FillRectangle((128/2)-20, (160/2)-20, 40, 40, frombytestocolor565(red, green, blue));
+ 8000f18:	4b0b      	ldr	r3, [pc, #44]	@ (8000f48 <main+0xd4>)
+ 8000f1a:	781b      	ldrb	r3, [r3, #0]
+ 8000f1c:	4a0b      	ldr	r2, [pc, #44]	@ (8000f4c <main+0xd8>)
+ 8000f1e:	7811      	ldrb	r1, [r2, #0]
+ 8000f20:	4a0b      	ldr	r2, [pc, #44]	@ (8000f50 <main+0xdc>)
+ 8000f22:	7812      	ldrb	r2, [r2, #0]
+ 8000f24:	4618      	mov	r0, r3
+ 8000f26:	f7ff ff7f 	bl	8000e28 <frombytestocolor565>
+ 8000f2a:	4603      	mov	r3, r0
+ 8000f2c:	9300      	str	r3, [sp, #0]
+ 8000f2e:	2328      	movs	r3, #40	@ 0x28
+ 8000f30:	2228      	movs	r2, #40	@ 0x28
+ 8000f32:	213c      	movs	r1, #60	@ 0x3c
+ 8000f34:	202c      	movs	r0, #44	@ 0x2c
+ 8000f36:	f7ff fc51 	bl	80007dc <ST7735_FillRectangle>
 	if(readRegisterFromPheripheral(REG_RGB_READY)==RGB_READY){
- 8000f34:	e7c8      	b.n	8000ec8 <main+0x54>
- 8000f36:	bf00      	nop
- 8000f38:	080054b8 	.word	0x080054b8
- 8000f3c:	20000000 	.word	0x20000000
- 8000f40:	080040e4 	.word	0x080040e4
- 8000f44:	20000050 	.word	0x20000050
- 8000f48:	20000051 	.word	0x20000051
- 8000f4c:	20000052 	.word	0x20000052
- 8000f50:	080040ec 	.word	0x080040ec
+ 8000f3a:	e7ce      	b.n	8000eda <main+0x66>
+ 8000f3c:	080054b4 	.word	0x080054b4
+ 8000f40:	20000000 	.word	0x20000000
+ 8000f44:	080040e4 	.word	0x080040e4
+ 8000f48:	20000050 	.word	0x20000050
+ 8000f4c:	20000051 	.word	0x20000051
+ 8000f50:	20000052 	.word	0x20000052
 
 08000f54 <SystemClock_Config>:
 /**
@@ -3074,7 +3074,7 @@ LoopForever:
   ldr r1, =_edata
  8001400:	20000014 	.word	0x20000014
   ldr r2, =_sidata
- 8001404:	0800f4d0 	.word	0x0800f4d0
+ 8001404:	0800f4cc 	.word	0x0800f4cc
   ldr r2, =_sbss
  8001408:	20000014 	.word	0x20000014
   ldr r4, =_ebss
@@ -6652,7 +6652,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  800281c:	40022000 	.word	0x40022000
  8002820:	40021000 	.word	0x40021000
  8002824:	04c4b400 	.word	0x04c4b400
- 8002828:	0800f4b8 	.word	0x0800f4b8
+ 8002828:	0800f4b4 	.word	0x0800f4b4
  800282c:	20000008 	.word	0x20000008
  8002830:	2000000c 	.word	0x2000000c
 
@@ -10872,10 +10872,10 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
  80040b6:	4798      	blx	r3
  80040b8:	3601      	adds	r6, #1
  80040ba:	e7f2      	b.n	80040a2 <__libc_init_array+0x1e>
- 80040bc:	0800f4c8 	.word	0x0800f4c8
- 80040c0:	0800f4c8 	.word	0x0800f4c8
- 80040c4:	0800f4c8 	.word	0x0800f4c8
- 80040c8:	0800f4cc 	.word	0x0800f4cc
+ 80040bc:	0800f4c4 	.word	0x0800f4c4
+ 80040c0:	0800f4c4 	.word	0x0800f4c4
+ 80040c4:	0800f4c4 	.word	0x0800f4c4
+ 80040c8:	0800f4c8 	.word	0x0800f4c8
 
 080040cc <_init>:
  80040cc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
