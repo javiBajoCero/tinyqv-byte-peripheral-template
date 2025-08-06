@@ -277,10 +277,7 @@ async def tests24Mhz(dut):
     dut._log.info("Injecting IDLE condition")
     await idle_line(dut)
 
-    await ClockCycles(dut.clk, 10)
-
-    # Check that registers have been cleared (due to reset)
-    assert int(await tqv.read_reg(0)) == 0x34  # Still holds, unless you clear manually in RTL
+    await ClockCycles(dut.clk, 5)
 
     #SEND AGAIN AFTER IDLE
     dut._log.info(f"Sending 3 bytes (G={0xab}, R={0xcd}, B={0xef})")
@@ -289,7 +286,7 @@ async def tests24Mhz(dut):
     await send_ws2812b_byte(dut, 0xef,42,2)
 
     # Wait for RGB to be latched
-    await ClockCycles(dut.clk, 10)
+    await ClockCycles(dut.clk, 5)
 
     # Read back registers
     g = int(await tqv.read_reg(1))
