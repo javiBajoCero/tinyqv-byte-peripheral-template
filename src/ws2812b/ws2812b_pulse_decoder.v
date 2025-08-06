@@ -1,17 +1,13 @@
-`timescale 1ns / 1ps
-
-module ws2812b_pulse_decoder #(
-    parameter CLK_HZ = 64000000,
-    parameter THRESHOLD_CYCLES = 38
-)(
-    input  wire clk,
-    input  wire reset,
-    input  wire din,
-    output reg  bit_valid,
-    output reg  bit_value
+module ws2812b_pulse_decoder (
+    input  wire        clk,
+    input  wire        reset,
+    input  wire        din,
+    input  wire [31:0] threshold_cycles,
+    output reg         bit_valid,
+    output reg         bit_value
 );
 
-    // FSM states (use classic Verilog style)
+    // FSM states
     localparam IDLE       = 2'b00;
     localparam COUNT_HIGH = 2'b01;
     localparam WAIT_LOW   = 2'b10;
@@ -53,7 +49,7 @@ module ws2812b_pulse_decoder #(
                 WAIT_LOW: begin
                     if (!din_stable) begin
                         bit_valid <= 1;
-                        bit_value <= (high_counter > THRESHOLD_CYCLES) ? 1'b1 : 1'b0;
+                        bit_value <= (high_counter > threshold_cycles) ? 1'b1 : 1'b0;
                     end
                 end
             endcase
