@@ -58,14 +58,10 @@ async def tests64Mhz(dut):
     # Set idle_ticks = 3840 = 0x00000F00
     await tqv.write_reg(0x06, 0x00)  # LSB
     await tqv.write_reg(0x07, 0x0F)
-    await tqv.write_reg(0x08, 0x00)
-    await tqv.write_reg(0x09, 0x00)
 
     # Set threshold_cycles = 38 = 0x00000026
     await tqv.write_reg(0x0A, 0x26)  # LSB
     await tqv.write_reg(0x0B, 0x00)
-    await tqv.write_reg(0x0C, 0x00)
-    await tqv.write_reg(0x0D, 0x00)
 
     # Commit new prescaler values
     await tqv.write_reg(0x05, 0xFF)
@@ -194,14 +190,10 @@ async def tests24Mhz(dut):
     # Set idle_ticks = (16/42)*3840=1463 = 0x000005B7
     await tqv.write_reg(0x06, 0xb7)  # LSB
     await tqv.write_reg(0x07, 0x05)
-    await tqv.write_reg(0x08, 0x00)
-    await tqv.write_reg(0x09, 0x00)
 
     # Set threshold_cycles = (16/42)*38= 15 = 0x0000000F
     await tqv.write_reg(0x0A, 0x0F)  # LSB
     await tqv.write_reg(0x0B, 0x00)
-    await tqv.write_reg(0x0C, 0x00)
-    await tqv.write_reg(0x0D, 0x00)
 
     # Commit new prescaler values
     await tqv.write_reg(0x05, 0xFF)
@@ -320,14 +312,10 @@ async def tests8MhzWithInputsRegisterRoulete(dut):
     # Set idle_ticks = (16/125)*3840 = 491 = 0x000001eb
     await tqv.write_reg(0x06, 0xeb)  # LSB
     await tqv.write_reg(0x07, 0x01)
-    await tqv.write_reg(0x08, 0x00)
-    await tqv.write_reg(0x09, 0x00)
 
     # Set threshold_cycles = (16/125)*38= 5 = 0x00000005
     await tqv.write_reg(0x0A, 0x05)  # LSB
     await tqv.write_reg(0x0B, 0x00)
-    await tqv.write_reg(0x0C, 0x00)
-    await tqv.write_reg(0x0D, 0x00)
 
     # Commit new prescaler values
     await tqv.write_reg(0x05, 0xFF)

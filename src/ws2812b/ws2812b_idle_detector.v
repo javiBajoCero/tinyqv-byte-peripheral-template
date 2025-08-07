@@ -4,11 +4,11 @@ module ws2812b_idle_detector (
     input  wire        clk,
     input  wire        reset,
     input  wire        din,
-    input  wire [31:0] idle_threshold_ticks,  // dynamic threshold in clock cycles
+    input  wire [15:0] idle_threshold_ticks,  // dynamic threshold in clock cycles
     output reg         idle
 );
 
-    reg [31:0] idle_counter;
+    reg [15:0] idle_counter;
 
     always @(posedge clk) begin
         if (reset) begin

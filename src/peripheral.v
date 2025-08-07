@@ -139,10 +139,10 @@ module tt_um_impostor_WS2812b (
     // ------------------------------------
     // Clock Configuration registers (prescalers)
     // ------------------------------------
-    reg [31:0] reg_threshold_cycles;
-    reg [31:0] reg_idle_ticks;
-    reg [31:0] shadow_threshold_cycles;
-    reg [31:0] shadow_idle_ticks;
+    reg [15:0] reg_threshold_cycles;
+    reg [15:0] reg_idle_ticks;
+    reg [15:0] shadow_threshold_cycles;
+    reg [15:0] shadow_idle_ticks;
 
     reg prescaler_commit;
 
@@ -163,14 +163,10 @@ module tt_um_impostor_WS2812b (
                     // shadow_idle_ticks
                     4'h6: shadow_idle_ticks[7:0]    <= data_in;
                     4'h7: shadow_idle_ticks[15:8]   <= data_in;
-                    4'h8: shadow_idle_ticks[23:16]  <= data_in;
-                    4'h9: shadow_idle_ticks[31:24]  <= data_in;
 
                     // shadow_threshold_cycles
                     4'hA: shadow_threshold_cycles[7:0]    <= data_in;
                     4'hB: shadow_threshold_cycles[15:8]   <= data_in;
-                    4'hC: shadow_threshold_cycles[23:16]  <= data_in;
-                    4'hD: shadow_threshold_cycles[31:24]  <= data_in;
 
                     // Prescaler commit request
                     4'h5: prescaler_commit <= 1'b1;

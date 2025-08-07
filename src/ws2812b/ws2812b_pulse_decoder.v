@@ -2,7 +2,7 @@ module ws2812b_pulse_decoder (
     input  wire        clk,
     input  wire        reset,
     input  wire        din,
-    input  wire [31:0] threshold_cycles,
+    input  wire [15:0] threshold_cycles,
     output reg         bit_valid,
     output reg         bit_value
 );
